@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 <title>Contribution List</title>
 
 <style>
@@ -14,212 +16,347 @@
 }
 
 :root {
-    --accent: #7c5cff;
-    --accent2: #a78bfa;
-    --text: #171525;
+    --primary: #7656e8;
+    --primary-light: #9b82ff;
+    --text: #181624;
     --muted: #77738a;
+    --danger: #e74d67;
     --glass: rgba(255,255,255,.60);
-    --border: rgba(255,255,255,.75);
+    --glass-border: rgba(255,255,255,.78);
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Inter, sans-serif;
+    font-family: "Inter", Arial, sans-serif;
     color: var(--text);
+
     background:
-        radial-gradient(circle at 10% 10%, #c8b9ff 0, transparent 32%),
-        radial-gradient(circle at 90% 15%, #a9e9ff 0, transparent 30%),
-        radial-gradient(circle at 70% 90%, #ffd1eb 0, transparent 35%),
+        radial-gradient(
+            circle at 5% 5%,
+            rgba(171,140,255,.65),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 10%,
+            rgba(99,220,255,.50),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 70% 95%,
+            rgba(255,172,218,.45),
+            transparent 35%
+        ),
         #eef0f8;
+
     overflow-x: hidden;
 }
 
-/* Liquid blobs */
+/* =========================
+   LIQUID BACKGROUND
+========================= */
+
 body::before,
 body::after {
     content: "";
     position: fixed;
-    width: 260px;
-    height: 260px;
+    width: 280px;
+    height: 280px;
     border-radius: 50%;
-    filter: blur(55px);
-    opacity: .55;
+    filter: blur(60px);
+    opacity: .45;
     z-index: -1;
-    animation: float 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    animation: liquidMove 9s ease-in-out infinite alternate;
 }
 
 body::before {
-    background: #9b7cff;
-    top: 5%;
-    left: -100px;
+    background: #8566ff;
+    left: -130px;
+    top: 15%;
 }
 
 body::after {
-    background: #6ee7f9;
-    bottom: 0;
-    right: -100px;
+    background: #4de2ee;
+    right: -130px;
+    bottom: 5%;
     animation-delay: 2s;
 }
 
-@keyframes float {
-    from { transform: translate(0,0) scale(1); }
-    to { transform: translate(35px,25px) scale(1.15); }
+@keyframes liquidMove {
+
+    0% {
+        transform: translate(0,0) scale(1);
+    }
+
+    50% {
+        transform: translate(35px,-25px) scale(1.15);
+    }
+
+    100% {
+        transform: translate(-20px,30px) scale(.95);
+    }
 }
+
+/* =========================
+   APP
+========================= */
 
 .app {
     width: 100%;
     max-width: 720px;
     margin: auto;
-    padding: 18px 14px 40px;
+    padding: 14px 12px 40px;
 }
 
-/* Glass */
+/* =========================
+   GLASS
+========================= */
+
 .glass {
     background: var(--glass);
-    border: 1px solid var(--border);
+
+    border: 1px solid var(--glass-border);
+
     box-shadow:
-        0 20px 50px rgba(55,45,100,.13),
-        inset 0 1px 0 rgba(255,255,255,.8);
-    backdrop-filter: blur(25px) saturate(150%);
-    -webkit-backdrop-filter: blur(25px) saturate(150%);
+        0 20px 50px rgba(65,45,120,.12),
+        inset 0 1px 0 rgba(255,255,255,.85);
+
+    backdrop-filter: blur(25px) saturate(160%);
+    -webkit-backdrop-filter: blur(25px) saturate(160%);
 }
 
-/* Header */
+/* =========================
+   HEADER
+========================= */
+
 .header {
-    padding: 22px;
-    border-radius: 30px;
-    margin-bottom: 14px;
     position: relative;
     overflow: hidden;
+
+    padding: 23px;
+
+    border-radius: 30px;
+
+    margin-bottom: 13px;
 }
 
 .header::after {
     content: "";
+
     position: absolute;
-    width: 130px;
-    height: 130px;
-    background: rgba(255,255,255,.25);
+
+    width: 160px;
+    height: 160px;
+
     border-radius: 50%;
-    right: -35px;
-    top: -55px;
-    filter: blur(5px);
+
+    right: -55px;
+    top: -70px;
+
+    background: rgba(255,255,255,.22);
+
+    filter: blur(3px);
 }
 
 .badge {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
+
     padding: 7px 11px;
+
     border-radius: 100px;
+
     background: rgba(255,255,255,.55);
-    color: var(--accent);
-    font-size: 11px;
+
+    color: var(--primary);
+
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: .5px;
-    text-transform: uppercase;
+
+    letter-spacing: 1px;
 }
 
 .header h1 {
-    margin: 13px 0 5px;
-    font-size: clamp(27px, 7vw, 40px);
+    margin: 13px 0 6px;
+
+    font-size: clamp(28px, 8vw, 40px);
+
     line-height: 1.05;
-    letter-spacing: -1.5px;
+
+    letter-spacing: -1.6px;
 }
 
 .header p {
     margin: 0;
+
     color: var(--muted);
+
     font-size: 13px;
+
+    line-height: 1.5;
 }
 
-/* Form */
+/* =========================
+   FORM
+========================= */
+
 .form {
-    padding: 16px;
-    border-radius: 26px;
-    margin-bottom: 14px;
+    padding: 15px;
+
+    border-radius: 27px;
+
+    margin-bottom: 13px;
 }
 
 .field {
-    position: relative;
     margin-bottom: 10px;
 }
 
 .field input {
     width: 100%;
-    height: 52px;
-    border: 1px solid rgba(255,255,255,.8);
-    border-radius: 17px;
-    outline: none;
-    background: rgba(255,255,255,.55);
+    height: 53px;
+
     padding: 0 15px;
-    font: inherit;
-    font-size: 14px;
+
+    border: 1px solid rgba(255,255,255,.85);
+
+    border-radius: 17px;
+
+    outline: none;
+
+    background: rgba(255,255,255,.55);
+
     color: var(--text);
-    transition: .2s;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition: .2s ease;
+}
+
+.field input::placeholder {
+    color: #9995a7;
 }
 
 .field input:focus {
-    border-color: rgba(124,92,255,.55);
-    background: rgba(255,255,255,.8);
-    box-shadow: 0 0 0 4px rgba(124,92,255,.08);
+    background: rgba(255,255,255,.85);
+
+    border-color: rgba(118,86,232,.45);
+
+    box-shadow:
+        0 0 0 4px rgba(118,86,232,.08);
 }
+
+/* =========================
+   BUTTON
+========================= */
 
 .add-btn {
     width: 100%;
-    height: 52px;
+    height: 53px;
+
     border: 0;
+
     border-radius: 17px;
+
     color: white;
-    background: linear-gradient(135deg, #7c5cff, #9c7cff);
-    font: inherit;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7656e8,
+            #9b7cff
+        );
+
+    font-family: inherit;
+
+    font-size: 14px;
+
     font-weight: 700;
+
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(124,92,255,.28);
-    transition: transform .15s, box-shadow .15s;
+
+    box-shadow:
+        0 12px 28px rgba(118,86,232,.25);
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
 }
 
 .add-btn:active {
     transform: scale(.97);
+
+    box-shadow:
+        0 6px 15px rgba(118,86,232,.2);
 }
 
-/* Stats */
+/* =========================
+   STATS
+========================= */
+
 .stats {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 10px;
-    margin-bottom: 14px;
+
+    margin-bottom: 13px;
 }
 
 .stat {
     padding: 16px;
-    border-radius: 22px;
+
+    border-radius: 23px;
 }
 
 .stat-label {
-    font-size: 11px;
     color: var(--muted);
-    margin-bottom: 5px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: .5px;
+
+    margin-bottom: 6px;
 }
 
 .stat-value {
     font-size: 21px;
+
     font-weight: 800;
-    letter-spacing: -.5px;
+
+    letter-spacing: -.6px;
 }
 
-/* List */
+/* =========================
+   LIST
+========================= */
+
 .list-card {
-    border-radius: 28px;
     overflow: hidden;
-    margin-bottom: 14px;
+
+    border-radius: 28px;
+
+    margin-bottom: 13px;
 }
 
 .list-header {
-    padding: 18px;
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
+    padding: 18px;
 }
 
 .list-header strong {
@@ -227,104 +364,195 @@ body::after {
 }
 
 .count {
-    font-size: 11px;
-    padding: 6px 9px;
+    padding: 6px 10px;
+
     border-radius: 50px;
-    background: rgba(124,92,255,.10);
-    color: var(--accent);
-    font-weight: 700;
+
+    color: var(--primary);
+
+    background: rgba(118,86,232,.10);
+
+    font-size: 10px;
+
+    font-weight: 800;
 }
 
 .empty {
-    padding: 38px 20px;
+    padding: 42px 20px;
+
     text-align: center;
+
     color: var(--muted);
+
     font-size: 13px;
 }
 
+/* =========================
+   ENTRY
+========================= */
+
 .entry {
     display: grid;
-    grid-template-columns: 34px 1fr auto 34px;
+
+    grid-template-columns:
+        34px
+        minmax(0,1fr)
+        auto
+        34px;
+
     gap: 9px;
+
     align-items: center;
-    padding: 13px 16px;
-    border-top: 1px solid rgba(80,70,100,.08);
+
+    padding: 13px 15px;
+
+    border-top:
+        1px solid
+        rgba(80,70,100,.08);
+
+    animation: entryIn .25s ease;
+}
+
+@keyframes entryIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .number {
     width: 30px;
     height: 30px;
-    border-radius: 11px;
+
     display: grid;
     place-items: center;
-    background: rgba(124,92,255,.10);
-    color: var(--accent);
+
+    border-radius: 11px;
+
+    color: var(--primary);
+
+    background: rgba(118,86,232,.10);
+
     font-size: 11px;
+
     font-weight: 800;
 }
 
 .name {
     min-width: 0;
-    font-size: 13px;
-    font-weight: 600;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
+
     white-space: nowrap;
+
+    font-size: 13px;
+
+    font-weight: 600;
 }
 
 .amount {
-    font-size: 13px;
-    font-weight: 800;
     white-space: nowrap;
+
+    font-size: 13px;
+
+    font-weight: 800;
 }
 
-.delete {
+.delete-btn {
     width: 30px;
     height: 30px;
+
     border: 0;
+
     border-radius: 10px;
-    background: rgba(255,80,100,.09);
-    color: #e54861;
+
+    background: rgba(231,77,103,.09);
+
+    color: var(--danger);
+
+    font-size: 17px;
+
     cursor: pointer;
-    font-size: 14px;
 }
 
-/* Bottom buttons */
+/* =========================
+   BOTTOM ACTIONS
+========================= */
+
 .actions {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 10px;
 }
 
 .action {
-    height: 52px;
+    height: 53px;
+
     border: 0;
+
     border-radius: 17px;
-    font: inherit;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
     font-weight: 700;
+
     cursor: pointer;
 }
 
 .download {
     color: white;
-    background: linear-gradient(135deg,#15a878,#27c997);
-    box-shadow: 0 10px 25px rgba(21,168,120,.22);
+
+    background:
+        linear-gradient(
+            135deg,
+            #10a879,
+            #2bc99a
+        );
+
+    box-shadow:
+        0 12px 28px rgba(16,168,121,.22);
 }
 
 .clear {
     color: #d94359;
-    background: rgba(255,255,255,.58);
-    border: 1px solid rgba(255,255,255,.8);
+
+    background: rgba(255,255,255,.60);
+
+    border: 1px solid rgba(255,255,255,.85);
 }
 
-/* Mobile */
+.action:active {
+    transform: scale(.97);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media (max-width: 420px) {
+
     .app {
-        padding: 10px 10px 30px;
+        padding:
+            9px
+            9px
+            30px;
     }
 
     .header {
         padding: 20px;
+
         border-radius: 26px;
     }
 
@@ -332,9 +560,21 @@ body::after {
         font-size: 29px;
     }
 
+    .form {
+        border-radius: 24px;
+    }
+
     .entry {
-        grid-template-columns: 30px 1fr auto 30px;
-        padding: 12px;
+        grid-template-columns:
+            30px
+            minmax(0,1fr)
+            auto
+            30px;
+
+        gap: 7px;
+
+        padding:
+            12px;
     }
 
     .amount {
@@ -342,15 +582,15 @@ body::after {
     }
 }
 
-/* Export design */
-.export-only {
-    display: none;
-}
+@media (max-width: 340px) {
 
-#exportCanvas {
-    position: absolute;
-    left: -99999px;
-    top: 0;
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -359,75 +599,147 @@ body::after {
 
 <div class="app">
 
+    <!-- HEADER -->
     <section class="header glass">
-        <div class="badge">✦ Contribution</div>
-        <h1>Contribution List</h1>
-        <p>Add names and amounts to create your contribution record.</p>
+
+        <div class="badge">
+            ✦ CONTRIBUTION
+        </div>
+
+        <h1>
+            Contribution List
+        </h1>
+
+        <p>
+            Keep your contribution records organized
+            in one beautiful list.
+        </p>
+
     </section>
 
+
+    <!-- INPUT -->
     <section class="form glass">
 
         <div class="field">
+
             <input
-                id="name"
+                id="nameInput"
                 type="text"
-                placeholder="Enter contributor name"
                 maxlength="50"
+                autocomplete="off"
+                placeholder="Enter contributor name"
             >
+
         </div>
+
 
         <div class="field">
+
             <input
-                id="amount"
+                id="amountInput"
                 type="number"
-                placeholder="Enter amount ₹"
                 min="1"
                 step="0.01"
+                inputmode="decimal"
+                placeholder="Enter amount ₹"
             >
+
         </div>
 
-        <button class="add-btn" onclick="addEntry()">
+
+        <button
+            class="add-btn"
+            onclick="addContribution()"
+        >
             + Add Contribution
         </button>
 
     </section>
 
+
+    <!-- STATS -->
     <section class="stats">
 
         <div class="stat glass">
-            <div class="stat-label">TOTAL PEOPLE</div>
-            <div class="stat-value" id="people">0</div>
+
+            <div class="stat-label">
+                TOTAL PEOPLE
+            </div>
+
+            <div
+                class="stat-value"
+                id="peopleCount"
+            >
+                0
+            </div>
+
         </div>
 
+
         <div class="stat glass">
-            <div class="stat-label">TOTAL AMOUNT</div>
-            <div class="stat-value" id="total">₹0</div>
+
+            <div class="stat-label">
+                TOTAL AMOUNT
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalAmount"
+            >
+                ₹0.00
+            </div>
+
         </div>
 
     </section>
 
+
+    <!-- LIST -->
     <section class="list-card glass">
 
         <div class="list-header">
-            <strong>Contributors</strong>
-            <span class="count" id="count">0 / 20</span>
+
+            <strong>
+                Contributors
+            </strong>
+
+            <span
+                class="count"
+                id="entryCount"
+            >
+                0 / 20
+            </span>
+
         </div>
 
-        <div id="list">
+
+        <div id="contributionList">
+
             <div class="empty">
                 No contributions added yet.
             </div>
+
         </div>
 
     </section>
 
+
+    <!-- ACTIONS -->
     <div class="actions">
 
-        <button class="action download" onclick="downloadJPEG()">
+        <button
+            class="action download"
+            onclick="downloadJPEG()"
+        >
             ↓ Download JPEG
         </button>
 
-        <button class="action clear" onclick="clearAll()">
+
+        <button
+            class="action clear"
+            onclick="clearAll()"
+        >
             Clear All
         </button>
 
@@ -435,93 +747,536 @@ body::after {
 
 </div>
 
-<!-- html2canvas -->
+
+<!--
+    html2canvas
+    Used only to generate the JPEG.
+-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
 <script>
 
-let entries = [];
+/* ==========================================
+   STORAGE KEY
+========================================== */
 
-/* Add */
-function addEntry() {
+const STORAGE_KEY =
+    "contribution_list_data_v1";
 
-    const name = document.getElementById("name").value.trim();
-    const amount = Number(document.getElementById("amount").value);
 
-    if (!name) {
-        alert("Please enter a name.");
-        return;
+/* ==========================================
+   LOAD DATA
+========================================== */
+
+let entries = loadData();
+
+
+function loadData() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+            return [];
+        }
+
+        const parsed =
+            JSON.parse(saved);
+
+        if (!Array.isArray(parsed)) {
+            return [];
+        }
+
+        return parsed.slice(0, 20);
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load saved data:",
+            error
+        );
+
+        return [];
     }
-
-    if (!amount || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
-
-    if (entries.length >= 20) {
-        alert("Maximum 20 contributors allowed.");
-        return;
-    }
-
-    entries.push({
-        name: name,
-        amount: amount
-    });
-
-    document.getElementById("name").value = "";
-    document.getElementById("amount").value = "";
-
-    document.getElementById("name").focus();
-
-    render();
 }
 
 
-/* Render */
-function render() {
+/* ==========================================
+   SAVE DATA
+========================================== */
 
-    const list = document.getElementById("list");
+function saveData() {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(entries)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Unable to save data:",
+            error
+        );
+
+        alert(
+            "Your browser could not save the data."
+        );
+    }
+}
+
+
+/* ==========================================
+   ADD CONTRIBUTION
+========================================== */
+
+function addContribution() {
+
+    const nameInput =
+        document.getElementById("nameInput");
+
+    const amountInput =
+        document.getElementById("amountInput");
+
+
+    const name =
+        nameInput.value.trim();
+
+    const amount =
+        Number(amountInput.value);
+
+
+    if (!name) {
+
+        alert(
+            "Please enter the contributor name."
+        );
+
+        nameInput.focus();
+
+        return;
+    }
+
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+
+        alert(
+            "Please enter a valid amount."
+        );
+
+        amountInput.focus();
+
+        return;
+    }
+
+
+    if (entries.length >= 20) {
+
+        alert(
+            "Maximum 20 contributors allowed."
+        );
+
+        return;
+    }
+
+
+    entries.push({
+
+        id:
+            Date.now() +
+            Math.random()
+            .toString(36)
+            .substring(2),
+
+        name:
+            name,
+
+        amount:
+            Number(amount.toFixed(2)),
+
+        createdAt:
+            new Date().toISOString()
+
+    });
+
+
+    saveData();
+
+    renderList();
+
+
+    nameInput.value = "";
+
+    amountInput.value = "";
+
+    nameInput.focus();
+}
+
+
+/* ==========================================
+   DELETE
+========================================== */
+
+function deleteContribution(index) {
+
+    const person =
+        entries[index];
+
+    if (!person) {
+        return;
+    }
+
+
+    if (
+        confirm(
+            `Remove "${person.name}" from the list?`
+        )
+    ) {
+
+        entries.splice(index, 1);
+
+        saveData();
+
+        renderList();
+    }
+}
+
+
+/* ==========================================
+   CLEAR ALL
+========================================== */
+
+function clearAll() {
+
+    if (entries.length === 0) {
+
+        alert(
+            "There are no contributions to clear."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete all contributions?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    entries = [];
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    renderList();
+}
+
+
+/* ==========================================
+   RENDER LIST
+========================================== */
+
+function renderList() {
+
+    const list =
+        document.getElementById(
+            "contributionList"
+        );
+
 
     list.innerHTML = "";
 
+
     let total = 0;
 
-    entries.forEach((item, index) => {
 
-        total += item.amount;
+    entries.forEach(
+        (entry, index) => {
 
-        const row = document.createElement("div");
+            total += Number(entry.amount);
 
-        row.className = "entry";
 
-        row.innerHTML = `
-            <div class="number">${index + 1}</div>
+            const row =
+                document.createElement("div");
 
-            <div class="name">
-                ${escapeHTML(item.name)}
-            </div>
 
-            <div class="amount">
-                ₹${item.amount.toLocaleString("en-IN", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                })}
-            </div>
+            row.className =
+                "entry";
 
-            <button
-                class="delete"
-                onclick="removeEntry(${index})">
-                ×
-            </button>
-        `;
 
-        list.appendChild(row);
-    });
+            row.innerHTML = `
+
+                <div class="number">
+                    ${index + 1}
+                </div>
+
+                <div
+                    class="name"
+                    title="${escapeHTML(entry.name)}"
+                >
+                    ${escapeHTML(entry.name)}
+                </div>
+
+                <div class="amount">
+                    ${formatMoney(entry.amount)}
+                </div>
+
+                <button
+                    class="delete-btn"
+                    aria-label="Delete contribution"
+                    onclick="deleteContribution(${index})"
+                >
+                    ×
+                </button>
+
+            `;
+
+
+            list.appendChild(row);
+        }
+    );
+
 
     if (entries.length === 0) {
 
         list.innerHTML = `
+
             <div class="empty">
+
+                No contributions added yet.
+
+            </div>
+
+        `;
+    }
+
+
+    document.getElementById(
+        "peopleCount"
+    ).textContent =
+        entries.length;
+
+
+    document.getElementById(
+        "entryCount"
+    ).textContent =
+        `${entries.length} / 20`;
+
+
+    document.getElementById(
+        "totalAmount"
+    ).textContent =
+        formatMoney(total);
+}
+
+
+/* ==========================================
+   MONEY FORMAT
+========================================== */
+
+function formatMoney(amount) {
+
+    return "₹" +
+        Number(amount).toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+}
+
+
+/* ==========================================
+   HTML ESCAPE
+========================================== */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value);
+
+    return div.innerHTML;
+}
+
+
+/* ==========================================
+   ENTER KEY
+========================================== */
+
+document
+    .getElementById("nameInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                document
+                    .getElementById(
+                        "amountInput"
+                    )
+                    .focus();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("amountInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                addContribution();
+            }
+
+        }
+    );
+
+
+/* ==========================================
+   DOWNLOAD JPEG
+========================================== */
+
+async function downloadJPEG() {
+
+    if (entries.length === 0) {
+
+        alert(
+            "Please add at least one contribution first."
+        );
+
+        return;
+    }
+
+
+    if (
+        typeof html2canvas ===
+        "undefined"
+    ) {
+
+        alert(
+            "JPEG generator is not available. Please check your internet connection once."
+        );
+
+        return;
+    }
+
+
+    const total =
+        entries.reduce(
+            (sum, item) =>
+                sum + Number(item.amount),
+            0
+        );
+
+
+    /*
+       Temporary export container.
+       It is NOT visible on the website.
+    */
+
+    const exportBox =
+        document.createElement("div");
+
+
+    exportBox.style.position =
+        "fixed";
+
+    exportBox.style.left =
+        "-99999px";
+
+    exportBox.style.top =
+        "0";
+
+    exportBox.style.width =
+        "800px";
+
+    exportBox.style.padding =
+        "45px";
+
+    exportBox.style.fontFamily =
+        "Arial, sans-serif";
+
+    exportBox.style.background =
+        "linear-gradient(135deg,#eeeaff,#eefcff,#fff0f7)";
+
+
+    let rows = "";
+
+
+    entries.forEach(
+        (entry, index) => {
+
+            rows += `
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:
+                        55px 1fr 180px;
+
+                    align-items:center;
+
+                    gap:10px;
+
+                    padding:
+                        15px 18px;
+
+                    margin-bottom:8px;
+
+                    border-radius:17px;
+
+                    background:
+                        rgba(255,255,255,.72);
+
+                    border:
+                        1px solid
+                        rgba(255,255,255,.95);
+                ">
+
+                    <div style="
+                        width:34px;
+                        height:34px;
+
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+
+                        border-radius:11px;
+
+                        background:#eee9ff;
+
+                        color:#7656e8;
+
+                        font-size:13px;
+
+                        font-weight:800;
+                    ">
+                        ${index + 1}
+  <div class="empty">
                 No contributions added yet.
             </div>
         `;
