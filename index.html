@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Contribution List</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --accent: #7c5cff;
+    --accent2: #a78bfa;
+    --text: #171525;
+    --muted: #77738a;
+    --glass: rgba(255,255,255,.60);
+    --border: rgba(255,255,255,.75);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 10%, #c8b9ff 0, transparent 32%),
+        radial-gradient(circle at 90% 15%, #a9e9ff 0, transparent 30%),
+        radial-gradient(circle at 70% 90%, #ffd1eb 0, transparent 35%),
+        #eef0f8;
+    overflow-x: hidden;
+}
+
+/* Liquid blobs */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: .55;
+    z-index: -1;
+    animation: float 8s ease-in-out infinite alternate;
+}
+
+body::before {
+    background: #9b7cff;
+    top: 5%;
+    left: -100px;
+}
+
+body::after {
+    background: #6ee7f9;
+    bottom: 0;
+    right: -100px;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(35px,25px) scale(1.15); }
+}
+
+.app {
+    width: 100%;
+    max-width: 720px;
+    margin: auto;
+    padding: 18px 14px 40px;
+}
+
+/* Glass */
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    box-shadow:
+        0 20px 50px rgba(55,45,100,.13),
+        inset 0 1px 0 rgba(255,255,255,.8);
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+}
+
+/* Header */
+.header {
+    padding: 22px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: rgba(255,255,255,.25);
+    border-radius: 50%;
+    right: -35px;
+    top: -55px;
+    filter: blur(5px);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 100px;
+    background: rgba(255,255,255,.55);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.header h1 {
+    margin: 13px 0 5px;
+    font-size: clamp(27px, 7vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+}
+
+.header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Form */
+.form {
+    padding: 16px;
+    border-radius: 26px;
+    margin-bottom: 14px;
+}
+
+.field {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.field input {
+    width: 100%;
+    height: 52px;
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 17px;
+    outline: none;
+    background: rgba(255,255,255,.55);
+    padding: 0 15px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--text);
+    transition: .2s;
+}
+
+.field input:focus {
+    border-color: rgba(124,92,255,.55);
+    background: rgba(255,255,255,.8);
+    box-shadow: 0 0 0 4px rgba(124,92,255,.08);
+}
+
+.add-btn {
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-radius: 17px;
+    color: white;
+    background: linear-gradient(135deg, #7c5cff, #9c7cff);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(124,92,255,.28);
+    transition: transform .15s, box-shadow .15s;
+}
+
+.add-btn:active {
+    transform: scale(.97);
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.stat {
+    padding: 16px;
+    border-radius: 22px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+/* List */
+.list-card {
+    border-radius: 28px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.list-header {
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-header strong {
+    font-size: 16px;
+}
+
+.count {
+    font-size: 11px;
+    padding: 6px 9px;
+    border-radius: 50px;
+    background: rgba(124,92,255,.10);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.empty {
+    padding: 38px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.entry {
+    display: grid;
+    grid-template-columns: 34px 1fr auto 34px;
+    gap: 9px;
+    align-items: center;
+    padding: 13px 16px;
+    border-top: 1px solid rgba(80,70,100,.08);
+}
+
+.number {
+    width: 30px;
+    height: 30px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    background: rgba(124,92,255,.10);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.name {
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.amount {
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.delete {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(255,80,100,.09);
+    color: #e54861;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Bottom buttons */
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.action {
+    height: 52px;
+    border: 0;
+    border-radius: 17px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.download {
+    color: white;
+    background: linear-gradient(135deg,#15a878,#27c997);
+    box-shadow: 0 10px 25px rgba(21,168,120,.22);
+}
+
+.clear {
+    color: #d94359;
+    background: rgba(255,255,255,.58);
+    border: 1px solid rgba(255,255,255,.8);
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+    .app {
+        padding: 10px 10px 30px;
+    }
+
+    .header {
+        padding: 20px;
+        border-radius: 26px;
+    }
+
+    .header h1 {
+        font-size: 29px;
+    }
+
+    .entry {
+        grid-template-columns: 30px 1fr auto 30px;
+        padding: 12px;
+    }
+
+    .amount {
+        font-size: 12px;
+    }
+}
+
+/* Export design */
+.export-only {
+    display: none;
+}
+
+#exportCanvas {
+    position: absolute;
+    left: -99999px;
+    top: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <section class="header glass">
+        <div class="badge">✦ Contribution</div>
+        <h1>Contribution List</h1>
+        <p>Add names and amounts to create your contribution record.</p>
+    </section>
+
+    <section class="form glass">
+
+        <div class="field">
+            <input
+                id="name"
+                type="text"
+                placeholder="Enter contributor name"
+                maxlength="50"
+            >
+        </div>
+
+        <div class="field">
+            <input
+                id="amount"
+                type="number"
+                placeholder="Enter amount ₹"
+                min="1"
+                step="0.01"
+            >
+        </div>
+
+        <button class="add-btn" onclick="addEntry()">
+            + Add Contribution
+        </button>
+
+    </section>
+
+    <section class="stats">
+
+        <div class="stat glass">
+            <div class="stat-label">TOTAL PEOPLE</div>
+            <div class="stat-value" id="people">0</div>
+        </div>
+
+        <div class="stat glass">
+            <div class="stat-label">TOTAL AMOUNT</div>
+            <div class="stat-value" id="total">₹0</div>
+        </div>
+
+    </section>
+
+    <section class="list-card glass">
+
+        <div class="list-header">
+            <strong>Contributors</strong>
+            <span class="count" id="count">0 / 20</span>
+        </div>
+
+        <div id="list">
+            <div class="empty">
+                No contributions added yet.
+            </div>
+        </div>
+
+    </section>
+
+    <div class="actions">
+
+        <button class="action download" onclick="downloadJPEG()">
+            ↓ Download JPEG
+        </button>
+
+        <button class="action clear" onclick="clearAll()">
+            Clear All
+        </button>
+
+    </div>
+
+</div>
+
+<!-- html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+
+let entries = [];
+
+/* Add */
+function addEntry() {
+
+    const name = document.getElementById("name").value.trim();
+    const amount = Number(document.getElementById("amount").value);
+
+    if (!name) {
+        alert("Please enter a name.");
+        return;
+    }
+
+    if (!amount || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    if (entries.length >= 20) {
+        alert("Maximum 20 contributors allowed.");
+        return;
+    }
+
+    entries.push({
+        name: name,
+        amount: amount
+    });
+
+    document.getElementById("name").value = "";
+    document.getElementById("amount").value = "";
+
+    document.getElementById("name").focus();
+
+    render();
+}
+
+
+/* Render */
+function render() {
+
+    const list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    let total = 0;
+
+    entries.forEach((item, index) => {
+
+        total += item.amount;
+
+        const row = document.createElement("div");
+
+        row.className = "entry";
+
+        row.innerHTML = `
+            <div class="number">${index + 1}</div>
+
+            <div class="name">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div class="amount">
+                ₹${item.amount.toLocaleString("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}
+            </div>
+
+            <button
+                class="delete"
+                onclick="removeEntry(${index})">
+                ×
+            </button>
+        `;
+
+        list.appendChild(row);
+    });
+
+    if (entries.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty">
+                No contributions added yet.
+            </div>
+        `;
+    }
+
+    document.getElementById("people").textContent =
+        entries.length;
+
+    document.getElementById("count").textContent =
+        entries.length + " / 20";
+
+    document.getElementById("total").textContent =
+        "₹" + total.toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+}
+
+
+/* Delete */
+function removeEntry(index) {
+
+    entries.splice(index, 1);
+
+    render();
+}
+
+
+/* Clear */
+function clearAll() {
+
+    if (entries.length === 0) return;
+
+    if (confirm("Clear all contributions?")) {
+
+        entries = [];
+
+        render();
+    }
+}
+
+
+/* Enter key */
+document.getElementById("amount").addEventListener(
+    "keydown",
+    function(e) {
+
+        if (e.key === "Enter") {
+            addEntry();
+        }
+
+    }
+);
+
+
+/* Security */
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* JPEG Generator */
+async function downloadJPEG() {
+
+    if (entries.length === 0) {
+
+        alert("Add at least one contribution first.");
+
+        return;
+    }
+
+    let total = entries.reduce(
+        (sum, item) => sum + item.amount,
+        0
+    );
+
+    /*
+       Create a separate premium export card.
+       This keeps the downloaded JPEG clean.
+    */
+
+    const exportDiv = document.createElement("div");
+
+    exportDiv.style.position = "fixed";
+    exportDiv.style.left = "-99999px";
+    exportDiv.style.top = "0";
+    exportDiv.style.width = "800px";
+    exportDiv.style.padding = "45px";
+    exportDiv.style.fontFamily = "Arial, sans-serif";
+    exportDiv.style.background =
+        "linear-gradient(135deg,#eeeaff,#eefcff,#fff0f7)";
+
+    let rows = "";
+
+    entries.forEach((item, index) => {
+
+        rows += `
+        <div style="
+            display:grid;
+            grid-template-columns:60px 1fr 180px;
+            align-items:center;
+            padding:17px 20px;
+            margin-bottom:8px;
+            border-radius:16px;
+            background:rgba(255,255,255,.72);
+            border:1px solid rgba(255,255,255,.9);
+        ">
+
+            <div style="
+                width:34px;
+                height:34px;
+                border-radius:11px;
+                background:#eee9ff;
+                color:#7656e8;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-weight:bold;
+                font-size:13px;
+            ">
+                ${index + 1}
+            </div>
+
+            <div style="
+                font-size:18px;
+                font-weight:600;
+                color:#20202b;
+            ">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div style="
+                text-align:right;
+                font-size:18px;
+                font-weight:bold;
+                color:#7656e8;
+            ">
+                ₹${item.amount.toLocaleString("en-IN", {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                })}
+            </div>
+
+        </div>`;
+    });
+
+    exportDiv.innerHTML = `
+
+        <div style="
+            border-radius:30px;
+            padding:34px;
+            background:rgba(255,255,255,.62);
+            border:1px solid rgba(255,255,255,.9);
+            box-shadow:0 20px 60px rgba(50,40,100,.15);
+        ">
+
+            <div style="
+                font-size:13px;
+                font-weight:bold;
+                color:#7656e8;
+                letter-spacing:2px;
+                text-transform:uppercase;
+            ">
+                CONTRIBUTION RECORD
+            </div>
+
+            <div style="
+                font-size:38px;
+                font-weight:800;
+                color:#171525;
+                margin-top:10px;
+            ">
+                Contribution List
+            </div>
+
+            <div style="
+                color:#77738a;
+                font-size:15px;
+                margin-top:7px;
+                margin-bottom:28px;
+            ">
+                Contributor details and collected amount
+            </div>
+
+            ${rows}
+
+            <div style="
+                margin-top:20px;
+                padding:22px;
+                border-radius:20px;
+                background:linear-gradient(135deg,#7656e8,#9c7cff);
+                color:white;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            ">
+
+                <div>
+                    <div style="
+                        font-size:13px;
+                        opacity:.8;
+                    ">
+                        TOTAL CONTRIBUTION
+                    </div>
+
+                    <div style="
+                        font-size:28px;
+                        font-weight:800;
+                        margin-top:4px;
+                    ">
+                        ₹${total.toLocaleString("en-IN", {
+                            minimumFractionDigits:2,
+                            maximumFractionDigits:2
+                        })}
+                    </div>
+                </div>
+
+                <div style="
+                    font-size:14px;
+                    text-align:right;
+                ">
+                    ${entries.length} Contributor${entries.length !== 1 ? "s" : ""}
+                </div>
+
+            </div>
+
+            <div style="
+                text-align:center;
+                color:#9995a5;
+                font-size:11px;
+                margin-top:22px;
+            ">
+                Generate by Macmilan
+            </div>
+
+        </div>
+    `;
+
+    document.body.appendChild(exportDiv);
+
+    try {
+
+        const canvas = await html2canvas(exportDiv, {
+            scale: 2,
+            backgroundColor: null,
+            useCORS: true
+        });
+
+        const link = document.createElement("a");
+
+        const date = new Date()
+            .toISOString()
+            .split("T")[0];
+
+        link.download =
+            "Contribution-List-" + date + ".jpg";
+
+        link.href =
+            canvas.toDataURL("image/jpeg", 0.95);
+
+        link.click();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to create JPEG.");
+
+    }
+
+    document.body.removeChild(exportDiv);
+}
+
+
+/* Initial */
+render();
+
+</script>
+
+</body>
+</html>
